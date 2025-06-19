@@ -1,0 +1,72 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Timeline } from "../components/Timeline";
+---
+
+<Layout>
+    <div class="bg-muted">
+        <section
+            class="scroll-py-16 py-16 md:scroll-py-32 md:py-32 bg-background"
+        >
+            <div class="mx-auto max-w-7xl px-6">
+                <div
+                    class="grid gap-y-12 px-2 lg:[grid-template-columns:2fr_auto] space-x-8 grid-cols-2"
+                >
+                    <div class="text-center lg:text-left space-y-2">
+                        <h1 class="mb-6 text-4xl font-semibold md:text-5xl">
+                            Consejo para el Desarrollo Estratégico de <span
+                                class="leading-6">Santiago</span
+                            >
+                        </h1>
+                        <p class="text-sm line leading-6 text-left">
+                            El Consejo para el Desarrollo Estratégico de
+                            Santiago (CDES) es una entidad no lucrativa, acogida
+                            a la Ley 122-05, para la regulación y fomento de las
+                            Asociaciones Sin Fines de Lucro. Fundado el 26 de
+                            noviembre de 1997 por representantes de las
+                            principales instituciones públicas, privadas y
+                            ciudadanas del municipio de Santiago, fue
+                            incorporado en 1998 mediante Decreto del Poder
+                            Ejecutivo No. 57-98.
+                        </p>
+                        <p class="text-sm line leading-6 text-left">
+                            Está integrado por más de 60 organizaciones y
+                            munícipes independientes, que reúnen a todos los
+                            sectores de la sociedad de Santiago: el
+                            Ayuntamiento, el gobierno nacional y sus
+                            representantes locales, el sector comercial y
+                            empresarial, ONGs, instituciones culturales y
+                            deportivas, grupos religiosos, Federaciones de
+                            Juntas de Vecinos, organizaciones populares,
+                            comunicadores, entre otros.
+                        </p>
+                        <p class="text-sm line leading-6 text-left">
+                            Todas las instituciones que conforman el Consejo,
+                            son representadas por una Junta Directiva de quince
+                            miembros, electas cada dos años mediante Asamblea
+                            Eleccionaria. Sobre esta reposa la toma de
+                            decisiones, que se llevan a cabo en sesiones de
+                            trabajo mensuales. La ejecución de las acciones
+                            consensuadas por la Junta Directiva corresponde a la
+                            Oficina Coordinadora, quienes se encargan del
+                            seguimiento técnico y logístico de los proyectos
+                            apoyados por el CDES.
+                        </p>
+                    </div>
+                    <div
+                        class="divide-y divide-dashed sm:mx-auto max-w-2xl lg:mx-0"
+                    >
+                        <img
+                            src="https://cdes.do/wp-content/themes/cdes/img/infografia_desktop.svg"
+                            alt="Frequently Asked Questions"
+                            class="mb-6 w-full"
+                        />
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="mx-auto max-w-7xl px-6 bg-muted">
+            <Timeline client:load/>
+        </div>
+    </div>
+</Layout>
