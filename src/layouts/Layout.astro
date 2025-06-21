@@ -1,6 +1,6 @@
 ---
 import '../styles/globals.css';
-
+export const prerender = false;
 import {Menu} from '../components/Menu';
 ---
 <!doctype html>
@@ -13,7 +13,7 @@ import {Menu} from '../components/Menu';
 		<title>Astro Basics</title>
 	</head>
 	<body>
-		<Menu/>
+		<Menu client:load/>
 		<slot />
 	</body>
 </html>
