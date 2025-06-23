@@ -1,0 +1,79 @@
+---
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Calendar, User } from 'lucide-react';
+
+interface Props {
+    noticia: {
+        id: number;
+        titulo: string;
+        descripcion: string;
+        imagen: string;
+        autor: string;
+        fecha: string;
+        hora: string;
+    };
+    showFullContent?: boolean;
+}
+
+const { noticia, showFullContent = false } = Astro.props;
+
+function formatearFecha(fecha: string, hora: string) {
+    const fechaObj = new Date(`${fecha}T${hora}`);
+    return fechaObj.toLocaleDateString('es-DO', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+}
+---
+
+<Card class="overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer">
+    <CardHeader class="p-0">
+        <div class="aspect-video overflow-hidden">
+            <img
+                src={noticia.imagen}
+                alt={noticia.titulo}
+                class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+            />
+        </div>
+    </CardHeader>
+    
+    <CardContent class="p-6">
+        <h3 class={`font-semibold mb-3 font-noto ${showFullContent ? 'text-2xl' : 'text-lg line-clamp-2'}`}>
+            <a 
+                href={`/noticias/${noticia.id}`}
+                class="hover:text-primary transition-colors"
+            >
+                {noticia.titulo}
+            </a>
+        </h3>
+        
+        <p class={`text-muted-foreground text-sm mb-4 font-inter ${showFullContent ? '' : 'line-clamp-3'}`}>
+            {noticia.descripcion}
+        </p>
+        
+        <div class="flex items-center justify-between text-xs text-muted-foreground">
+            <div class="flex items-center space-x-1">
+                <User class="w-4 h-4" />
+                <span>{noticia.autor}</span>
+            </div>
+            <div class="flex items-center space-x-1">
+                <Calendar class="w-4 h-4" />
+                <span>{formatearFecha(noticia.fecha, noticia.hora)}</span>
+            </div>
+        </div>
+        
+        {!showFullContent && (
+            <div class="mt-4">
+                <a 
+                    href={`/noticias/${noticia.id}`}
+                    class="text-primary hover:text-primary/80 text-sm font-medium transition-colors"
+                >
+                    Leer más →
+                </a>
+            </div>
+        )}
+    </CardContent>
+</Card>

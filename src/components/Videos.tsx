@@ -97,7 +97,7 @@ export default function CarouselVideos() {
 
       {/* Información adicional */}
       <div className="mt-6 text-center text-sm text-muted-foreground">
-        <p>Desliza para ver más videos • {videos.length} videos disponibles</p>
+        <p>Desliza para ver más videos</p>
       </div>
     </div>
   )

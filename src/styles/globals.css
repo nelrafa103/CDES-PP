@@ -118,3 +118,30 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .font-noto {
+    font-family: 'Noto Sans', sans-serif;
+  }
+  
+  .font-raleway {
+    font-family: 'Raleway', sans-serif;
+  }
+  
+  /* Clases específicas para la sección de noticias */
+  .news-title {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+  }
+  
+  .news-content {
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+  
+  .news-heading {
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 500;
+  }
+}

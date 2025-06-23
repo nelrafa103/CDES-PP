@@ -1,0 +1,139 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Calendar, User, ArrowLeft } from 'lucide-react';
+
+export async function getStaticPaths() {
+    const noticias = [
+        {
+            id: "1",
+            titulo: "Ulises Rodríguez designa comisión especialistas para formular propuesta de Santiago al Premio Global Mayors Challenge 2025 de la Fundación Bloomberg",
+            descripcion: "El alcalde por Santiago, Ulises Rodríguez, designa comisión de expertos integrada por el doctor Reynaldo Peguero, director del Plan Estratégico de Santiago 2030, el ingeniero Ervin Vargas, asesor de urbanismo de la alcaldía y a Johanna Castillo directora de la Oficina Municipal de Planeamiento Urbano del Ayuntamiento para diseñar la propuesta de participación de Santiago en el Premio Bloomberg Philanthropies 2025 Global Mayors Challenge.",
+            contenido: `
+                <p>El alcalde por Santiago, Ulises Rodríguez, ha dado un paso importante hacia la innovación urbana al designar una comisión de expertos de alto calibre para formular la propuesta de participación de Santiago en el prestigioso Premio Bloomberg Philanthropies 2025 Global Mayors Challenge.</p>
+                
+                <h3>Comisión de Expertos</h3>
+                <p>La comisión está integrada por:</p>
+                <ul>
+                    <li><strong>Dr. Reynaldo Peguero</strong> - Director del Plan Estratégico de Santiago 2030</li>
+                    <li><strong>Ing. Ervin Vargas</strong> - Asesor de urbanismo de la alcaldía</li>
+                    <li><strong>Johanna Castillo</strong> - Directora de la Oficina Municipal de Planeamiento Urbano del Ayuntamiento</li>
+                </ul>
+                
+                <h3>Sobre el Premio</h3>
+                <p>El Premio Bloomberg Philanthropies 2025 Global Mayors Challenge es una iniciativa que reconoce y premia con <strong>US$ 1,000,000.00 (Un millón de dólares)</strong> las soluciones más innovadoras para solventar los desafíos y retos en las ciudades contemporáneas.</p>
+                
+                <p>Este premio no solo representa una oportunidad económica significativa, sino también una plataforma para proyectar la visión y el compromiso de la gestión local de Santiago a nivel internacional.</p>
+                
+                <h3>Impacto Esperado</h3>
+                <p>La participación de Santiago en este concurso global representa una oportunidad única para:</p>
+                <ul>
+                    <li>Implementar soluciones innovadoras a problemas urbanos locales</li>
+                    <li>Posicionar a Santiago como una ciudad líder en innovación en el Caribe</li>
+                    <li>Acceder a recursos financieros significativos para el desarrollo urbano</li>
+                    <li>Conectar con una red global de ciudades innovadoras</li>
+                </ul>
+            `,
+            imagen: "/news-1.jpg",
+            autor: "Equipo CDES",
+            fecha: "2024-12-20",
+            hora: "14:30"
+        },
+        // Agrega las otras noticias aquí...
+    ];
+
+    return noticias.map((noticia) => ({
+        params: { id: noticia.id },
+        props: { noticia }
+    }));
+}
+
+const { noticia } = Astro.props;
+
+function formatearFecha(fecha: string, hora: string) {
+    const fechaObj = new Date(`${fecha}T${hora}`);
+    return fechaObj.toLocaleDateString('es-DO', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+}
+---
+
+<Layout>
+    <main class="min-h-screen bg-background py-16">
+        <div class="container mx-auto max-w-4xl px-6">
+            <!-- Botón volver -->
+            <div class="mb-8">
+                <a 
+                    href="/noticias"
+                    class="inline-flex items-center space-x-2 text-primary hover:text-primary/80 transition-colors"
+                >
+                    <ArrowLeft class="w-4 h-4" />
+                    <span>Volver a noticias</span>
+                </a>
+            </div>
+
+            <!-- Imagen destacada -->
+            <div class="aspect-video overflow-hidden rounded-lg mb-8">
+                <img
+                    src={noticia.imagen}
+                    alt={noticia.titulo}
+                    class="w-full h-full object-cover"
+                />
+            </div>
+
+            <!-- Contenido del artículo -->
+            <article class="prose prose-lg max-w-none">
+                <!-- Título -->
+                <h1 class="text-4xl font-bold mb-6 font-playfair">
+                    {noticia.titulo}
+                </h1>
+
+                <!-- Metadata -->
+                <div class="flex items-center space-x-6 text-muted-foreground mb-8 not-prose">
+                    <div class="flex items-center space-x-2">
+                        <User class="w-5 h-5" />
+                        <span class="font-medium">{noticia.autor}</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <Calendar class="w-5 h-5" />
+                        <span>{formatearFecha(noticia.fecha, noticia.hora)}</span>
+                    </div>
+                </div>
+
+                <!-- Descripción/Lead -->
+                <div class="text-xl text-muted-foreground mb-8 font-inter leading-relaxed">
+                    {noticia.descripcion}
+                </div>
+
+                <!-- Contenido principal -->
+                <div class="font-inter" set:html={noticia.contenido}></div>
+            </article>
+
+            <!-- Compartir (opcional) -->
+            <div class="mt-12 pt-8 border-t">
+                <h3 class="text-lg font-semibold mb-4">Compartir esta noticia</h3>
+                <div class="flex space-x-4">
+                    <a 
+                        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(noticia.titulo)}&url=${encodeURIComponent(`https://cdes-santiago.com/noticias/${noticia.id}`)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+                    >
+                        Twitter
+                    </a>
+                    <a 
+                        href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://cdes-santiago.com/noticias/${noticia.id}`)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 transition-colors"
+                    >
+                        Facebook
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+</Layout>

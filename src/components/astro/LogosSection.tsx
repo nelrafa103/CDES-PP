@@ -16,75 +16,75 @@ export default function LogosSection() {
                         <InfiniteSlider speedOnHover={20} speed={40} gap={112}>
                             <div className="flex">
                                 <img
-                                    className="mx-auto size-6 w-fit dark:invert"
+                                    className="mx-auto size-12 w-fit dark:invert"
                                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Japan_International_Cooperation_Agency_logo.svg/1269px-Japan_International_Cooperation_Agency_logo.svg.png"
                                     alt="Nvidia Logo"
-                                    height="20"
+                                    height="40"
                                     width="auto"
                                 />
                             </div>
 
                             <div className="flex">
                                 <img
-                                    className="mx-auto h-4 w-fit dark:invert"
+                                    className="mx-auto h-8 w-fit dark:invert"
                                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/USAID-Identity.svg/2560px-USAID-Identity.svg.png"
                                     alt="Column Logo"
-                                    height="16"
+                                    height="32"
                                     width="auto"
                                 />
                             </div>
                             <div className="flex">
                                 <img
-                                    className="mx-auto h-4 w-fit dark:invert"
+                                    className="mx-auto h-8 w-fit dark:invert"
                                     src="https://www.clipartmax.com/png/middle/145-1454872_idb-logo-colour-inter-american-development-bank.png"
                                     alt="GitHub Logo"
-                                    height="16"
+                                    height="32"
                                     width="auto"
                                 />
                             </div>
                             <div className="flex">
                                 <img
-                                    className="mx-auto h-5 w-fit dark:invert"
+                                    className="mx-auto h-10 w-fit dark:invert"
                                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/AECID_logo.svg/1200px-AECID_logo.svg.png"
                                     alt="Nike Logo"
-                                    height="20"
+                                    height="40"
                                     width="auto"
                                 />
                             </div>
                             <div className="flex">
                                 <img
-                                    className="mx-auto h-5 w-fit dark:invert"
+                                    className="mx-auto h-10 w-fit dark:invert"
                                     src="https://cdn.worldvectorlogo.com/logos/ue-union-europea.svg"
                                     alt="Lemon Squeezy Logo"
-                                    height="20"
+                                    height="40"
                                     width="auto"
                                 />
                             </div>
                             <div className="flex">
                                 <img
-                                    className="mx-auto h-4 w-fit dark:invert"
+                                    className="mx-auto h-8 w-fit dark:invert"
                                     src="https://www.metropolis.org/sites/default/files/styles/max_325x325/public/2021-03/cideu-logo.png?itok=SFJnXTm4"
                                     alt="Laravel Logo"
-                                    height="16"
+                                    height="32"
                                     width="auto"
                                 />
                             </div>
                             <div className="flex">
                                 <img
-                                    className="mx-auto h-7 w-fit dark:invert"
+                                    className="mx-auto h-14 w-fit dark:invert"
                                     src="https://banner2.cleanpng.com/20180721/yra/kisspng-united-nations-office-at-nairobi-habitat-iii-unite-women-political-leaders-global-forum-5b52b25e232048.4138122215321462701439.jpg"
                                     alt="Lilly Logo"
-                                    height="28"
+                                    height="52"
                                     width="auto"
                                 />
                             </div>
 
                             <div className="flex">
                                 <img
-                                    className="mx-auto h-6 w-fit dark:invert"
+                                    className="mx-auto h-12 w-fit dark:invert"
                                     src="https://www.bcie.org/typo3conf/ext/bcie_package/Resources/Public/Images/logo-cabei-2021.png"
                                     alt="OpenAI Logo"
-                                    height="24"
+                                    height="48"
                                     width="auto"
                                 />
                             </div>

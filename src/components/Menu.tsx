@@ -4,9 +4,9 @@ import { useState } from 'react'
 
 const menuItems = [
     { name: 'Acerca de nosotros', href: '/nosotros' },
-    { name: 'PES', href: '#' },
+    { name: 'PES', href: '/plan-estrategico-de-santiago' },
     { name: 'Noticias', href: '/noticias' },
-    { name: 'Biblioteca', href: '#' },
+    { name: 'Biblioteca', href: '/biblioteca' },
     { name: 'Contacto', href: '/contacto' },
 ]
 export function Menu() {

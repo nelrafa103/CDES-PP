@@ -45,18 +45,18 @@ export default function HeroSection() {
     return (
         <>
             <main>
-                <section className="overflow-hidden h-screen">
+                <section className="overflow-hidden h-200">
                     <div className="relative mx-auto max-w-screen px-6 py-28 lg:py-20">
                         <div className="lg:flex lg:items-center lg:gap-12">
-                            <div className="relative z-10 mx-auto max-w-xl text-center lg:ml-0 lg:w-1/2 lg:text-left">
+                            <div className="relative z-10 mx-auto max-w-xl text-center lg:ml-0 lg:w-1/2 lg:text-left space-y-6">
                                 <AnimatePresence mode="wait"> {/* Use mode="wait" to ensure one animation completes before the next starts */}
                                     <motion.h1
                                         key={content[currentSlide]?.title}
-                                        className="mt-10 text-balance text-4xl font-bold md:text-5xl xl:text-5xl min-h-[144px]"
+                                        className="text-balance text-4xl font-bold md:text-5xl xl:text-5xl"
                                         initial={{ opacity: 0, }} // Start slightly below and invisible
                                         animate={{ opacity: 1, }} // Slide up and fade in
                                         exit={{ opacity: 0, }} // Slide up and fade out
-                                        transition={{ duration: 0.7, ease: "easeOut" }} // Adjust duration and easing
+                                        transition={{ duration: 0.7, ease: "easeIn" }} // Adjust duration and easing
                                     >
                                         {content[currentSlide]?.title}
                                     </motion.h1>
@@ -65,7 +65,7 @@ export default function HeroSection() {
 
                                     <motion.p
                                         key={content[currentSlide]?.description}
-                                        className="mt-8 min-h-[120px] max-h-[120px] text-ellipsis overflow-hidden"
+                                        className="text-base leading-relaxed"
                                         initial={{ opacity: 0,  }}
                                         animate={{ opacity: 1,  }}
                                         exit={{ opacity: 0, }}
@@ -74,16 +74,32 @@ export default function HeroSection() {
                                         {content[currentSlide]?.description}
                                     </motion.p>
                                 </AnimatePresence>
-                                <Button className="mt-4">
-                                    Conocer más
-                                </Button>
+                                <AnimatePresence mode="wait">
+                                    <motion.div
+                                        key={`button-${currentSlide}`}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ duration: 0.5, delay: 0.2 }}
+                                        className="h-12 flex items-center"
+                                    >
+                                        <a 
+                                            href={currentSlide === 0 ? "/plan-estrategico-de-santiago" : "/nosotros"}
+                                            className="cursor-pointer"
+                                        >
+                                            <Button className="cursor-pointer">
+                                                {currentSlide === 0 ? "Conocer Plan Estratégico" : "Acerca de Nosotros"}
+                                            </Button>
+                                        </a>
+                                    </motion.div>
+                                </AnimatePresence>
 
                             </div>
 
                         </div>
                         <div className="absolute inset-0 z-0 -mx-4 rounded-3xl p-3 lg:col-span-3 w-screen">
                             <div className="relative overflow-hidden rounded-3xl w-screen">
-                                <div className="bg-radial-[at_75%_25%] to-background z-10 absolute -inset-0 from-transparent to-40% w-screen"></div>
+                                <div className="bg-radial-[at_75%_25%] to-background z-10 absolute -inset-0 from-12% to-40% w-screen"></div>
 
                                 {/* Slider Container */}
                                 <div
