@@ -10,91 +10,89 @@ import CarouselVideos from '@/components/Videos';
 import InfographySection from '@/components/astro/InfographySection.astro';
 
 const heroRequest = await fetch(
-	`${import.meta.env.PUBLIC_STRAPI_URL}/api/pagina-principal?populate[Hero][populate]=*`,
-	{
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json",
-			Authorization: `Bearer ${import.meta.env.PUBLIC_STRAPI_KEY}`,
-		},
-	},
+    `${import.meta.env.PUBLIC_STRAPI_URL}/api/pagina-principal?populate[Hero][populate]=*`,
+    {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${import.meta.env.PUBLIC_STRAPI_KEY}`,
+        },
+    },
 );
+
 const newsRequest = await fetch(
-	`${import.meta.env.PUBLIC_STRAPI_URL}/api/pagina-principal?populate[Noticias][populate]=*`,
-	{
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json",
-			Authorization: `Bearer ${import.meta.env.PUBLIC_STRAPI_KEY}`,
-		},
-	},
+    `${import.meta.env.PUBLIC_STRAPI_URL}/api/pagina-principal?populate[Noticias][populate]=*`,
+    {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${import.meta.env.PUBLIC_STRAPI_KEY}`,
+        },
+    },
 );
+
 const newResponse = await newsRequest.json();
 
 const contentRequest = await fetch(
-	`${import.meta.env.PUBLIC_STRAPI_URL}/api/pagina-principal?populate[Contenido][populate]=*`,
-	{
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json",
-			Authorization: `Bearer ${import.meta.env.PUBLIC_STRAPI_KEY}`,
-		},
-	},
+    `${import.meta.env.PUBLIC_STRAPI_URL}/api/pagina-principal?populate[Contenido][populate]=*`,
+    {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${import.meta.env.PUBLIC_STRAPI_KEY}`,
+        },
+    },
 );
+
 const contentResponse = await contentRequest.json();
 const contenido = organize(contentResponse.data.Contenido);
 
 const { Noticias } = newResponse.data;
 const noticias = organize(Noticias);
 const videos = noticias["shared.media"];
+
 const news = await Promise.all(
-	noticias["shared.destacado"].map(async (news: any) => {
-		const newsRequest = await fetch(
-			`${import.meta.env.PUBLIC_STRAPI_URL}/api/articulos/${news.entrada.documentId}?populate=*`,
-			{
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${import.meta.env.PUBLIC_STRAPI_KEY}`,
-				},
-			},
-		);
-		return newsRequest.json();
-	}),
+    noticias["shared.destacado"].map(async (news: any) => {
+        const newsRequest = await fetch(
+            `${import.meta.env.PUBLIC_STRAPI_URL}/api/articulos/${news.entrada.documentId}?populate=*`,
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${import.meta.env.PUBLIC_STRAPI_KEY}`,
+                },
+            },
+        );
+        return newsRequest.json();
+    }),
 );
 
 const heroResponse = await heroRequest.json();
 const { Hero } = heroResponse.data;
 
 const footerRequest = await fetch(
-	`${import.meta.env.PUBLIC_STRAPI_URL}/api/pie-de-pagina?populate=*`,
-	{
-		method: "GET",
-		headers: {
-			"Content-Type": "application-json",
-			Authorization: `Bearer ${import.meta.env.PUBLIC_STRAPI_KEY}`,
-		},
-	},
+    `${import.meta.env.PUBLIC_STRAPI_URL}/api/pie-de-pagina?populate=*`,
+    {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${import.meta.env.PUBLIC_STRAPI_KEY}`,
+        },
+    },
 );
 
 const footerResponse = await footerRequest.json();
-const { Enlaces, RedSocial } = footerResponse.data;import CarouselVideos from '@/components/Videos';
-import InfographySection from '@/components/astro/InfographySection.astro';
+const { Enlaces, RedSocial } = footerResponse.data;
 ---
 
 <Layout>
-    <HeroSection client:load />
-    <NewsSection client:load />
-    <ContentSection/>
-    <CarouselVideos client:load />
-    <InfographySection/>  
-    <FooterSection/>
-	<HeroSection data={Hero} client:load />
-	<NewsSection data={news} videos={videos} client:load />
-	<ContentSection
-		title={contenido["shared.titulo"]}
-		paragraphs={contenido["shared.parrafo"]}
-		media={contenido["shared.media"]}
-	/>
-	<FooterSection RedSocial={RedSocial}, Enlaces={Enlaces} />
+    <HeroSection data={Hero} client:load />
+    <NewsSection data={news} videos={videos} client:load />
+    <ContentSection
+        title={contenido["shared.titulo"]}
+        paragraphs={contenido["shared.parrafo"]}
+        media={contenido["shared.media"]}
+    />
+    <InfographySection />
+    <FooterSection RedSocial={RedSocial} Enlaces={Enlaces} />
 </Layout>
