@@ -10,27 +10,17 @@ const menuItems = [
     { name: "About", href: "#" },
 ]
 
-export default function HeroSection() {
+export default function HeroSection({ data }: { data: any }) {
     const [menuState, setMenuState] = useState(false)
     const [currentSlide, setCurrentSlide] = useState(0)
     const [show, setShow] = useState(true)
 
 
-    const content = [
-        {
-            title: `Plan estrategico Santiago 2030 "Actualizacion" `,
-            description: `El Plan Estratégico de Santiago 2030 Actualizado es la Agenda Oficial de Proyectos y Desarrollo de esta ciudad y el municipio, propone el logro de un futuro deseable para Santiago, contemplando proyectos estructurantes y productos entregables conducentes a mejorar la calidad de vida de los ciudadanos.`
-        },
-        {
-            title: `Consejo para el Desarrollo Estratégico de Santiago`,
-            description: `Planificamos y articulamos proyectos que aseguran el desarrollo sostenible de Santiago y su entorno metropolitano..`
-        }
-    ]
-
-    const backgroundImages = [
-        "https://i0.wp.com/cdes.do/wp-content/uploads/2020/02/Fernando-German-Elevado-Estrella-Sadhala-scaled.jpg?fit=2560%2C1705&ssl=1",
-        "https://i0.wp.com/cdes.do/wp-content/uploads/2020/04/Foto-Puente-Fernando-Germain-min-scaled.jpg?fit=2560%2C1705&ssl=1",
-    ]
+    const content = data
+ 
+    const backgroundImages = data.map((item: any) => {
+        return `${import.meta.env.PUBLIC_STRAPI_URL}${item.Media.url}`
+    })
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -42,6 +32,8 @@ export default function HeroSection() {
         }, 4000) // Change slide every 10 seconds
         return () => { clearInterval(interval); clearInterval(showinterval) }
     }, [backgroundImages.length])
+
+
     return (
         <>
             <main>
@@ -58,7 +50,7 @@ export default function HeroSection() {
                                         exit={{ opacity: 0, }} // Slide up and fade out
                                         transition={{ duration: 0.7, ease: "easeIn" }} // Adjust duration and easing
                                     >
-                                        {content[currentSlide]?.title}
+                                        {content[currentSlide]?.Titulo}
                                     </motion.h1>
                                 </AnimatePresence>
                                 <AnimatePresence mode="wait">
@@ -71,7 +63,7 @@ export default function HeroSection() {
                                         exit={{ opacity: 0, }}
                                         transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }} // Add a slight delay for the description
                                     >
-                                        {content[currentSlide]?.description}
+                                        {content[currentSlide]?.Descripcion}
                                     </motion.p>
                                 </AnimatePresence>
                                 <AnimatePresence mode="wait">
@@ -106,7 +98,7 @@ export default function HeroSection() {
                                     className="flex transition-transform duration-1000 ease-in-out"
                                     style={{ transform: `translateX(-${currentSlide * 100}%)` }}
                                 >
-                                    {backgroundImages.map((image, index) => (
+                                    {backgroundImages.map((image: string, index: number) => (
                                         <div key={index} className="w-full flex-shrink-0">
                                             <img
                                                 src={image || "/placeholder.svg"}
@@ -114,7 +106,7 @@ export default function HeroSection() {
                                                 width={2796}
                                                 height={2008}
                                                 className="w-full h-full object-cover"
-                                              
+
                                             />
                                         </div>
                                     ))}
