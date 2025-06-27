@@ -34,7 +34,7 @@ const librosData: Libro[] = [
         fechaPublicacion: "2024-01-15",
         descripcion: "Documento actualizado del Plan Estratégico de Santiago que contempla proyectos estructurantes para mejorar la calidad de vida de los ciudadanos hasta el año 2030.",
         urlPdf: "/docs/plan-estrategico-2030-actualizacion.pdf",
-        imagen: "/PES_libro.jpg",
+        imagen: "/books/plan-estrategico-cover.jpg",
         paginas: 156,
     },
     {
@@ -47,7 +47,7 @@ const librosData: Libro[] = [
         fechaPublicacion: "2023-11-20",
         descripcion: "Análisis comprehensivo del territorio de Santiago incluyendo aspectos demográficos, económicos y sociales.",
         urlPdf: "/docs/diagnostico-territorial-santiago.pdf",
-        imagen: "/PES_libro.jpg",
+        imagen: "/books/diagnostico-cover.jpg",
         paginas: 89,
     },
     {
@@ -60,7 +60,7 @@ const librosData: Libro[] = [
         fechaPublicacion: "2023-09-10",
         descripcion: "Estudio sobre las estrategias de movilidad urbana sostenible implementadas y propuestas para la ciudad de Santiago.",
         urlPdf: "/docs/movilidad-urbana-sostenible.pdf",
-        imagen: "/PES_libro.jpg",
+        imagen: "/books/movilidad-cover.jpg",
         paginas: 67,
     },
     {
@@ -73,7 +73,7 @@ const librosData: Libro[] = [
         fechaPublicacion: "2023-06-05",
         descripcion: "Análisis del desarrollo económico local en Santiago y estrategias para fomentar el crecimiento económico sostenible.",
         urlPdf: "/docs/desarrollo-economico-local.pdf",
-        imagen: "/PES_libro.jpg",
+        imagen: "/books/economia-cover.jpg",
         paginas: 134,
     },
     {
@@ -86,7 +86,7 @@ const librosData: Libro[] = [
         fechaPublicacion: "2023-03-18",
         descripcion: "Guía sobre gestión ambiental urbana y implementación de políticas verdes en ciudades intermedias.",
         urlPdf: "/docs/gestion-ambiental-urbana.pdf",
-        imagen: "/PES_libro.jpg",
+        imagen: "/books/ambiente-cover.jpg",
         paginas: 98,
     },
     {
@@ -99,7 +99,7 @@ const librosData: Libro[] = [
         fechaPublicacion: "2022-12-12",
         descripcion: "Recorrido histórico del desarrollo urbano y social de Santiago desde la fundación hasta la actualidad.",
         urlPdf: "/docs/historia-desarrollo-santiago.pdf",
-        imagen: "/PES_libro.jpg",
+        imagen: "/books/historia-cover.jpg",
         paginas: 245,
     }
 ]
