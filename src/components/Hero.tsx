@@ -16,11 +16,21 @@ export default function HeroSection({ data }: { data: any }) {
     const [show, setShow] = useState(true)
 
 
-    const content = data
- 
-    const backgroundImages = data.map((item: any) => {
-        return `${import.meta.env.PUBLIC_STRAPI_URL}${item.Media.url}`
-    })
+    const content = [
+        {
+            title: `Plan Estratégico Santiago 2030 "Actualización" `,
+            description: `El Plan Estratégico de Santiago 2030 Actualizado es la Agenda Oficial de Proyectos y Desarrollo de esta ciudad y el municipio, propone el logro de un futuro deseable para Santiago, contemplando proyectos estructurantes y productos entregables conducentes a mejorar la calidad de vida de los ciudadanos.`
+        },
+        {
+            title: `Consejo para el Desarrollo Estratégico de Santiago`,
+            description: `Planificamos y articulamos proyectos que aseguran el desarrollo sostenible de Santiago y su entorno metropolitano.`
+        }
+    ]
+
+    const backgroundImages = [
+        "https://i0.wp.com/cdes.do/wp-content/uploads/2020/02/Fernando-German-Elevado-Estrella-Sadhala-scaled.jpg?fit=2560%2C1705&ssl=1",
+        "https://i0.wp.com/cdes.do/wp-content/uploads/2020/04/Foto-Puente-Fernando-Germain-min-scaled.jpg?fit=2560%2C1705&ssl=1",
+    ]
 
     useEffect(() => {
         const interval = setInterval(() => {
