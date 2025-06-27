@@ -1,24 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { Timeline } from "../components/Timeline";
-
-const request = await fetch(
-    `${import.meta.env.PUBLIC_STRAPI_URL}/api/acerca-de-nosotro?populate=*`,
-    {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${import.meta.env.PUBLIC_STRAPI_KEY}`,
-        },
-    },
-);
-
-const response = await request.json();
-console.log(request.status);
-const { data } = response;
-console.log(data);
-const boltWord = "Santiago";
-const lenght = boltWord.length;
 ---
 
 <Layout>
@@ -32,31 +14,50 @@ const lenght = boltWord.length;
                 >
                     <div class="text-center lg:text-left space-y-2">
                         <h1 class="mb-6 text-4xl font-semibold md:text-5xl">
-                            {data.Titulo.slice(0, data.Titulo.length - lenght)}
-                            <span class="leading-6"
-                                >{
-                                    data.Titulo.slice(
-                                        data.Titulo.length - lenght,
-                                        data.Titulo.length,
-                                    )
-                                }</span
+                            Consejo para el Desarrollo Estratégico de <span
+                                class="leading-6">Santiago</span
                             >
                         </h1>
-                        {
-                            data.Contenido.map((item: any) => (
-                                <p class="text-sm line leading-6 text-left">
-                                  {
-                                    item.Contenido
-                                  }
-                                </p>
-                            ))
-                        }
+                        <p class="text-sm line leading-6 text-left">
+                            El Consejo para el Desarrollo Estratégico de
+                            Santiago (CDES) es una entidad no lucrativa, acogida
+                            a la Ley 122-05, para la regulación y fomento de las
+                            Asociaciones Sin Fines de Lucro. Fundado el 26 de
+                            noviembre de 1997 por representantes de las
+                            principales instituciones públicas, privadas y
+                            ciudadanas del municipio de Santiago, fue
+                            incorporado en 1998 mediante Decreto del Poder
+                            Ejecutivo No. 57-98.
+                        </p>
+                        <p class="text-sm line leading-6 text-left">
+                            Está integrado por más de 60 organizaciones y
+                            munícipes independientes, que reúnen a todos los
+                            sectores de la sociedad de Santiago: el
+                            Ayuntamiento, el gobierno nacional y sus
+                            representantes locales, el sector comercial y
+                            empresarial, ONGs, instituciones culturales y
+                            deportivas, grupos religiosos, Federaciones de
+                            Juntas de Vecinos, organizaciones populares,
+                            comunicadores, entre otros.
+                        </p>
+                        <p class="text-sm line leading-6 text-left">
+                            Todas las instituciones que conforman el Consejo,
+                            son representadas por una Junta Directiva de quince
+                            miembros, electas cada dos años mediante Asamblea
+                            Eleccionaria. Sobre esta reposa la toma de
+                            decisiones, que se llevan a cabo en sesiones de
+                            trabajo mensuales. La ejecución de las acciones
+                            consensuadas por la Junta Directiva corresponde a la
+                            Oficina Coordinadora, quienes se encargan del
+                            seguimiento técnico y logístico de los proyectos
+                            apoyados por el CDES.
+                        </p>
                     </div>
                     <div
                         class="divide-y divide-dashed sm:mx-auto max-w-2xl lg:mx-0"
                     >
                         <img
-                            src={import.meta.env.PUBLIC_STRAPI_URL + data.Media.url}
+                            src="https://cdes.do/wp-content/themes/cdes/img/infografia_desktop.svg"
                             alt="Frequently Asked Questions"
                             class="mb-6 w-full"
                         />
@@ -65,7 +66,7 @@ const lenght = boltWord.length;
             </div>
         </section>
         <div class="mx-auto max-w-7xl px-6 bg-muted">
-            <Timeline timelineData={data.Historia} client:load />
+            <Timeline client:load/>
         </div>
     </div>
 </Layout>

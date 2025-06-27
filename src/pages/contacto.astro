@@ -6,65 +6,36 @@ import { Label } from "@/components/ui/label";
 
 import { Button } from "@/components/ui/button";
 import Layout from "@/layouts/Layout.astro";
-const contactRequest = await fetch(
-    `${import.meta.env.PUBLIC_STRAPI_URL}/api/contacto?populate[Contacto][populate]=*`,
-    {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${import.meta.env.PUBLIC_STRAPI_KEY}`,
-        },
-    },
-);
-const request = await fetch(
-    `${import.meta.env.PUBLIC_STRAPI_URL}/api/contacto?populate=*`,
-    {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${import.meta.env.PUBLIC_STRAPI_KEY}`,
-        },
-    },
-);
-const response = await request.json();
-const { Titulo } = response.data;
-const contactResponse = await contactRequest.json();
-const { data } = contactResponse;
 ---
 
 <Layout>
     <section class="bg-muted py-15 sm:py-24 lg:py-32">
         <div class="mx-auto max-w-4xl px-4 lg:px-0">
             <h1 class="text-4xl font-semibold lg:text-5xl">
-                {Titulo.Contenido}
+                Ayúdanos a dirigir tu consulta
             </h1>
             <p class="text-muted-foreground mt-4 text-lg">
-                {Titulo.Subtitulo}
+                Te ayudaremos a encontrar el plan y precio adecuado para tu
+                negocio.
             </p>
             <div class="mt-12 grid gap-12 lg:grid-cols-5">
                 <div
                     class="grid grid-cols-2 lg:col-span-2 lg:block lg:space-y-12"
                 >
-                    {
-                        data?.Contacto.map((contact: any) => (
-                            <div class="flex flex-col justify-between space-y-6">
-                                <div>
-                                    <h2 class="mb-3 text-lg font-semibold">
-                                        {contact.Titulo}
-                                    </h2>
-                                    <a
-                                        href="mailto:cdescomunica@cdes.do"
-                                        class="text-primary text-lg hover:underline"
-                                    >
-                                        {contact.Correo}
-                                    </a>
-                                    <p class="mt-3 text-sm">
-                                        {contact.Telefono}
-                                    </p>
-                                </div>
-                            </div>
-                        ))
-                    }
+                    <div class="flex flex-col justify-between space-y-6">
+                        <div>
+                            <h2 class="mb-3 text-lg font-semibold">
+                                Colaborar
+                            </h2>
+                            <a
+                                href="mailto:cdescomunica@cdes.do"
+                                class="text-primary text-lg hover:underline"
+                            >
+                                cdescomunica@cdes.do
+                            </a>
+                            <p class="mt-3 text-sm">809-582-0335</p>
+                        </div>
+                    </div>
                 </div>
 
                 <form action="" class="@container lg:col-span-3">
@@ -73,8 +44,9 @@ const { data } = contactResponse;
                             Vamos a dirigirte al lugar correcto
                         </h3>
                         <p class="mt-4 text-sm">
-                            ¡Contacta a nuestra secretaria! Nos encantaría
-                            saber más sobre ti y cómo podemos ayudarte.
+                            ¡Contacta a nuestro equipo de ventas! Nos encantaría
+                            saber más sobre cómo planeas usar nuestra
+                            aplicación.
                         </p>
 
                         <div

@@ -3,18 +3,35 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Play, Pause } from "lucide-react"
 import { useState } from "react"
 
-export default function CarouselVideos({data}: {data: []}) {
+export default function CarouselVideos() {
   const [playingVideo, setPlayingVideo] = useState<number | null>(null)
 
-  const videos = data.map((item: any) => {
-    return {
-      id: item.Contenido.id,
-      title: item.Descripcion,
+  const videos = [
+    {
+      id: 1,
+      title: "Video de Introducción",
       thumbnail: "/hero-image.jpg",
-      src: `${import.meta.env.PUBLIC_STRAPI_URL}${item.Contenido.url}`, // Asumiendo que el video es un campo opcional
-      duration: "2:30", // Asumiendo que la duración es un campo opcional
-    }
-  }) 
+      duration: "2:30",
+    },
+    {
+      id: 2,
+      title: "Conoce a nuestro equipo",
+      thumbnail: "/hero-image.jpg",
+      duration: "3:45",
+    },
+    {
+      id: 3,
+      title: "Tour por nuestras instalaciones",
+      thumbnail: "/hero-image.jpg",
+      duration: "4:12",
+    },
+    {
+      id: 4,
+      title: "Conoce a nuestro patrocinadores",
+      thumbnail: "/hero-image.jpg",
+      duration: "5:20",
+    },
+  ]
 
   const handleVideoPlay = (videoId: number) => {
     setPlayingVideo(videoId)
@@ -50,7 +67,7 @@ export default function CarouselVideos({data}: {data: []}) {
                       onPlay={() => handleVideoPlay(video.id)}
                       onPause={handleVideoPause}
                     >
-                      <source src={video.src} type="video/mp4" />
+                      <source src="https://youtu.be/G-ngjNfMnvE?si=w4pcU0PjHbxMcX9c" type="video/mp4" />
                       Tu navegador no soporta el elemento video.
                     </video>
 
