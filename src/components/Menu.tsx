@@ -1,6 +1,6 @@
 "use client"
 import { Menu as MenuIcon, X } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const menuItems = [
     { name: 'Acerca de nosotros', href: '/nosotros' },
@@ -11,9 +11,11 @@ const menuItems = [
     { name: 'Biblioteca', href: '/biblioteca' },
     { name: 'Contacto', href: '/contacto' },
 ]
+
 export function Menu() {
 
     const [menuState, setMenuState] = useState(false)
+
 
     return (
         <header>

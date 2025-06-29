@@ -68,7 +68,7 @@ export default function ProyectosSection() {
           <div className="bg-background rounded-lg border shadow-sm p-8 mb-8">
             <div className="aspect-video overflow-hidden rounded-lg mb-6">
               <img
-                src="/proyecto-cdes-principal.jpg"
+                src="/trabajadores.jpg"
                 alt="Proyectos CDES Santiago"
                 className="w-full h-full object-cover"
                 onError={(e) => {
@@ -135,6 +135,7 @@ export default function ProyectosSection() {
                       ))}
                     </div>
                   </div>
+
                   {/* Botón Ver Detalles */}
                   <div className="pt-4 border-t">
                     <Button 
