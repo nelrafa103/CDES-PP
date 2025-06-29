@@ -1,6 +1,7 @@
 ---
 import HeroSection from '@/components/Hero';
 import NewsSection from '@/components/News';
+import ProyectosSection from '@/components/Proyectos'; // Agregar esta línea
 import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 import FooterSection from '@/components/astro/FooterSection.astro';
@@ -13,6 +14,7 @@ import InfographySection from '@/components/astro/InfographySection.astro';
     <HeroSection client:load />
     <NewsSection client:load />
     <ContentSection/>
+    <ProyectosSection client:load /> <!-- Agregar esta línea -->
     <CarouselVideos client:load />
     <InfographySection/>  
     <FooterSection/>

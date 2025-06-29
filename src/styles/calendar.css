@@ -1,0 +1,36 @@
+/* Ensure Schedule-X events use custom colors */
+.sx-event {
+  border-radius: 6px !important;
+  font-weight: 500 !important;
+}
+
+/* Force color application for events */
+.sx-event[data-event-id] {
+  background-color: var(--event-color) !important;
+}
+
+/* Custom event colors for each type */
+.sx-event[data-event-type="evento"] {
+  background-color: #3b82f6 !important;
+  border-color: #2563eb !important;
+  color: white !important;
+}
+
+.sx-event[data-event-type="reunion_publica"] {
+  background-color: #10b981 !important;
+  border-color: #059669 !important;
+  color: white !important;
+}
+
+.sx-event[data-event-type="lanzamiento_proyecto"] {
+  background-color: #f59e0b !important;
+  border-color: #d97706 !important;
+  color: white !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sx-react-calendar {
+    min-height: 500px;
+  }
+}
