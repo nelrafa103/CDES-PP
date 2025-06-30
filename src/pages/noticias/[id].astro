@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { Calendar, User, ArrowLeft } from 'lucide-react';
+import { Calendar, User, ArrowLeft, Volume2 } from 'lucide-react';
 
 export async function getStaticPaths() {
     const noticias = [
@@ -33,12 +33,56 @@ export async function getStaticPaths() {
                     <li>Conectar con una red global de ciudades innovadoras</li>
                 </ul>
             `,
-            imagen: "/news-1.jpg",
+            imagen: "/news.jpg",
             autor: "Equipo CDES",
             fecha: "2024-12-20",
             hora: "14:30"
         },
-        // Agrega las otras noticias aquí...
+        {
+            id: "2",
+            titulo: "Foro Educativo de la Calidad valorará logros y desafíos del sector en Santiago",
+            descripcion: "El Auditorio Magno del Centro León acogerá el próximo 28 de noviembre el primer Foro de la Calidad Educativa, un evento organizado por el Consejo para el Desarrollo Estratégico de Santiago (CDES) que reunirá a los principales actores del sector educativo de la ciudad.",
+            contenido: `
+                <p>Con el objetivo de evaluar los avances y definir los retos pendientes en materia educativa, el Consejo para el Desarrollo Estratégico de Santiago (CDES) organiza el primer Foro de la Calidad Educativa. El evento se celebrará el próximo 28 de noviembre en el Auditorio Magno del Centro León.</p>
+                
+                <h3>Participantes Destacados</h3>
+                <p>El foro contará con la participación de directores de centros educativos, rectores de universidades, representantes del Ministerio de Educación y expertos en políticas públicas educativas. Se espera un diálogo abierto y constructivo para trazar una hoja de ruta que eleve la calidad de la educación en Santiago.</p>
+
+                <h3>Temas a Tratar</h3>
+                <ul>
+                    <li>Innovación curricular y nuevas tecnologías en el aula.</li>
+                    <li>Formación docente y desarrollo profesional.</li>
+                    <li>Inclusión y equidad en el sistema educativo.</li>
+                    <li>Alianzas público-privadas para el fortalecimiento de la educación.</li>
+                </ul>
+            `,
+            imagen: "/viena-1.jpg",
+            autor: "Dr. Reynaldo Peguero",
+            fecha: "2024-11-22",
+            hora: "11:00"
+        },
+        {
+            id: "3",
+            titulo: "CDES presenta nuevo plan de movilidad urbana para Santiago",
+            descripcion: "El Consejo para el Desarrollo Estratégico de Santiago (CDES) ha presentado un ambicioso plan de movilidad urbana sostenible que busca transformar el transporte en la ciudad durante la próxima década, priorizando al peatón y el transporte público.",
+            contenido: `
+                <p>En un evento celebrado en el Palacio Consistorial, el CDES desveló el nuevo Plan de Movilidad Urbana Sostenible (PMUS) para Santiago. Este plan es el resultado de dos años de estudios y consultas con expertos y la ciudadanía.</p>
+
+                <h3>Ejes Principales del Plan</h3>
+                <p>El PMUS se articula en torno a cuatro ejes fundamentales:</p>
+                <ol>
+                    <li><strong>Modernización del transporte público:</strong> Renovación de la flota de autobuses con vehículos de bajas emisiones y optimización de rutas.</li>
+                    <li><strong>Infraestructura para la movilidad activa:</strong> Creación de más de 50 kilómetros de nuevas ciclovías y ampliación de aceras.</li>
+                    <li><strong>Gestión inteligente del tráfico:</strong> Implementación de un sistema de semáforos centralizado y adaptativo.</li>
+                    <li><strong>Promoción de la intermodalidad:</strong> Facilidades para combinar el uso de bicicletas, transporte público y caminata.</li>
+                </ol>
+                <p>El presidente del CDES, Ricardo Fondeur, destacó que "este plan no solo mejorará la fluidez del tráfico, sino que hará de Santiago una ciudad más saludable, equitativa y amigable con el medio ambiente".</p>
+            `,
+            imagen: "/viena-2.jpg",
+            autor: "Equipo CDES",
+            fecha: "2024-11-15",
+            hora: "09:00"
+        }
     ];
 
     return noticias.map((noticia) => ({
@@ -87,7 +131,7 @@ function formatearFecha(fecha: string, hora: string) {
             <!-- Contenido del artículo -->
             <article class="prose prose-lg max-w-none">
                 <!-- Título -->
-                <h1 class="text-4xl font-bold mb-6 font-playfair">
+                <h1 id="article-title" class="text-4xl font-bold mb-6 font-playfair">
                     {noticia.titulo}
                 </h1>
 
@@ -103,13 +147,19 @@ function formatearFecha(fecha: string, hora: string) {
                     </div>
                 </div>
 
+                <!-- Botón para leer -->
+                <button id="read-aloud-btn" class="flex items-center space-x-2 text-primary mb-8 not-prose hover:text-primary/80 transition-colors">
+                    <Volume2 client:load class="w-5 h-5" />
+                    <span class="font-medium">Leer en voz alta</span>
+                </button>
+
                 <!-- Descripción/Lead -->
-                <div class="text-xl text-muted-foreground mb-8 font-inter leading-relaxed">
+                <div id="article-description" class="text-xl text-muted-foreground mb-8 font-inter leading-relaxed">
                     {noticia.descripcion}
                 </div>
 
                 <!-- Contenido principal -->
-                <div class="font-inter" set:html={noticia.contenido}></div>
+                <div id="article-content" class="font-inter" set:html={noticia.contenido}></div>
             </article>
 
             <!-- Compartir (opcional) -->
@@ -137,3 +187,71 @@ function formatearFecha(fecha: string, hora: string) {
         </div>
     </main>
 </Layout>
+
+<script>
+    const readAloudBtn = document.getElementById('read-aloud-btn');
+    const articleTitle = document.getElementById('article-title');
+    const articleDescription = document.getElementById('article-description');
+    const articleContent = document.getElementById('article-content');
+
+    let isReading = false;
+    let utterance = null;
+
+    function stripHtml(html) {
+        let tmp = document.createElement("DIV");
+        tmp.innerHTML = html;
+        return tmp.textContent || tmp.innerText || "";
+    }
+
+    function toggleReading() {
+        if (isReading) {
+            speechSynthesis.cancel();
+            isReading = false;
+            readAloudBtn.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-volume-2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+                <span class="font-medium">Leer en voz alta</span>
+            `;
+        } else {
+            const titleText = articleTitle ? articleTitle.innerText : '';
+            const descriptionText = articleDescription ? articleDescription.innerText : '';
+            const contentText = articleContent ? stripHtml(articleContent.innerHTML) : '';
+            
+            const fullText = `${titleText}. ${descriptionText}. ${contentText}`;
+
+            utterance = new SpeechSynthesisUtterance(fullText);
+            utterance.lang = 'es-ES';
+            utterance.rate = 1;
+
+            utterance.onstart = () => {
+                isReading = true;
+                readAloudBtn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect></svg>
+                    <span class="font-medium">Detener lectura</span>
+                `;
+            };
+
+            utterance.onend = () => {
+                isReading = false;
+                readAloudBtn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-volume-2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+                    <span class="font-medium">Leer en voz alta</span>
+                `;
+            };
+            
+            speechSynthesis.speak(utterance);
+        }
+    }
+
+    if (readAloudBtn && 'speechSynthesis' in window) {
+        readAloudBtn.addEventListener('click', toggleReading);
+    } else if (readAloudBtn) {
+        readAloudBtn.style.display = 'none';
+    }
+
+    // Detener la lectura si el usuario abandona la página
+    window.addEventListener('beforeunload', () => {
+        if (isReading) {
+            speechSynthesis.cancel();
+        }
+    });
+</script>

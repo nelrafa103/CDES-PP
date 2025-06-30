@@ -19,6 +19,49 @@ import {Menu} from '../components/Menu';
     <body>
         <Menu/>
         <slot />
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const welcomeMessage = "Bienvenido al Consejo para el Desarrollo Estratégico de Santiago.";
+                const hasBeenWelcomed = sessionStorage.getItem('hasBeenWelcomed');
+
+                if (!hasBeenWelcomed && 'speechSynthesis' in window) {
+                    const utterance = new SpeechSynthesisUtterance(welcomeMessage);
+                    utterance.lang = 'es-ES';
+                    speechSynthesis.speak(utterance);
+                    sessionStorage.setItem('hasBeenWelcomed', 'true');
+                }
+
+                const menuLinks = document.querySelectorAll('#main-menu a');
+                const summaries = {
+                    '/nosotros': 'Aquí puedes conocer más sobre nosotros, nuestra historia y nuestro equipo.',
+                    '/plan-estrategico-de-santiago': 'Descubre nuestro plan estratégico para el desarrollo de Santiago.',
+                    '/proyectos': 'Explora los proyectos que estamos llevando a cabo para mejorar nuestra ciudad.',
+                    '/biblioteca': 'Accede a nuestra biblioteca de recursos y documentos.',
+                    '/noticias': 'Mantente al día con las últimas noticias y blogs.',
+                    '/calendario': 'Consulta nuestro calendario de eventos y actividades.',
+                    '/contacto': 'Ponte en contacto con nosotros.'
+                };
+
+                menuLinks.forEach(link => {
+                    link.addEventListener('click', (event) => {
+                        const href = link.getAttribute('href');
+                        const summary = summaries[href];
+                        const hasHeardSummary = sessionStorage.getItem(`summary_${href}`);
+
+                        if (summary && !hasHeardSummary && 'speechSynthesis' in window) {
+                            // No prevenir la navegación, solo hablar
+                            setTimeout(() => {
+                                const utterance = new SpeechSynthesisUtterance(summary);
+                                utterance.lang = 'es-ES';
+                                speechSynthesis.speak(utterance);
+                                sessionStorage.setItem(`summary_${href}`, 'true');
+                            }, 100); // Pequeño retraso para asegurar que la navegación no interrumpa el habla
+                        }
+                    });
+                });
+            });
+        </script>
     </body>
 </html>
 
