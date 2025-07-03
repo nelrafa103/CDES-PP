@@ -25,7 +25,7 @@ export default function CarouselVideos({data}: {data: []}) {
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-6">
+    <div className="w-full max-w-7xl mx-auto p-6">
       <h2 className="text-2xl font-bold mb-6 text-center">Conócenos mas fondo</h2>
 
       <Carousel
@@ -43,7 +43,7 @@ export default function CarouselVideos({data}: {data: []}) {
                   <div className="relative group">
                     {/* Video Player */}
                     <video
-                      className="w-full aspect-video object-cover"
+                      className="w-full h-full aspect-video object-cover"
                       poster={video.thumbnail}
                       controls
                       preload="metadata"
@@ -55,19 +55,7 @@ export default function CarouselVideos({data}: {data: []}) {
                     </video>
 
                     {/* Overlay con información */}
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                      <h3 className="text-white font-semibold text-sm mb-1">{video.title}</h3>
-                      <div className="flex items-center justify-between">
-                        <span className="text-white/80 text-xs">{video.duration}</span>
-                        <div className="flex items-center space-x-1">
-                          {playingVideo === video.id ? (
-                            <Pause className="w-4 h-4 text-white" />
-                          ) : (
-                            <Play className="w-4 h-4 text-white" />
-                          )}
-                        </div>
-                      </div>
-                    </div>
+                 
                   </div>
                 </CardContent>
               </Card>

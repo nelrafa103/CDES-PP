@@ -2,6 +2,21 @@
 import '../styles/globals.css';
 export const prerender = false;
 import {Menu} from '../components/Menu';
+import FooterSection from '@/components/astro/FooterSection.astro';
+
+const footerRequest = await fetch(
+	`${import.meta.env.PUBLIC_STRAPI_URL}/api/pie-de-pagina?populate=*`,
+	{
+		method: "GET",
+		headers: {
+			"Content-Type": "application-json",
+			Authorization: `Bearer ${import.meta.env.PUBLIC_STRAPI_KEY}`,
+		},
+	},
+);
+
+const footerResponse = await footerRequest.json();
+const { Enlaces, RedSocial } = footerResponse.data;
 ---
 <!doctype html>
 <html lang="en">
@@ -15,6 +30,7 @@ import {Menu} from '../components/Menu';
 	<body>
 		<Menu client:load/>
 		<slot />
+		<FooterSection RedSocial={RedSocial}, Enlaces={Enlaces} />
 	</body>
 </html>
  

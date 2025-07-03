@@ -1,0 +1,11 @@
+---
+import NewsDetail from "@/components/Article";
+import Layout from "@/layouts/Layout.astro";
+export const prerender = false;
+const { articulo } = Astro.params;
+console.log("Articulos:", articulo);
+---
+
+<Layout content={{ title: "Noticias" }}>
+    <NewsDetail id={articulo!} client:load />
+</Layout>
