@@ -132,10 +132,14 @@ const eventosEjemplo: Evento[] = [
 const CalendarApp = () => {
   const [eventsService] = useState(() => createEventsServicePlugin())
   const [eventoSeleccionado, setEventoSeleccionado] = useState<Evento | null>(null)
-  const [filtroActivo, setFiltroActivo] = useState<keyof typeof tiposEvento | null>(null)
+  const [filtrosActivos, setFiltrosActivos] = useState<(keyof typeof tiposEvento)[]>([])
 
   const handleTagClick = (type: keyof typeof tiposEvento) => {
-    setFiltroActivo(prevFiltro => (prevFiltro === type ? null : type))
+    setFiltrosActivos(prevFiltros => 
+      prevFiltros.includes(type)
+        ? prevFiltros.filter(f => f !== type) // Desactivar filtro
+        : [...prevFiltros, type] // Activar filtro
+    )
   }
 
   const calendar = useCalendarApp({
@@ -181,18 +185,18 @@ const CalendarApp = () => {
 
   // Filtrar eventos cuando cambia el filtro
   useEffect(() => {
-    const eventosParaMostrar = filtroActivo
-      ? eventosEjemplo.filter(e => e.type === filtroActivo)
+    const eventosParaMostrar = filtrosActivos.length > 0
+      ? eventosEjemplo.filter(e => filtrosActivos.includes(e.type))
       : eventosEjemplo;
 
     eventsService.set(eventosParaMostrar.map(evento => ({
         ...evento,
         calendarId: evento.type,
     })));
-  }, [filtroActivo, eventsService]);
+  }, [filtrosActivos, eventsService]);
  
-  const eventosFiltrados = filtroActivo
-    ? eventosEjemplo.filter(evento => evento.type === filtroActivo)
+  const eventosFiltrados = filtrosActivos.length > 0
+    ? eventosEjemplo.filter(evento => filtrosActivos.includes(evento.type))
     : eventosEjemplo
 
   return (
@@ -202,36 +206,48 @@ const CalendarApp = () => {
         <p className="text-muted-foreground">
           Mantente al día con nuestros eventos, reuniones y actividades programadas
         </p>
-        
-        <div className="mt-4 flex flex-wrap gap-3">
-          {Object.entries(tiposEvento).map(([key, tipo]) => (
-            <div 
-              key={key}
-              onClick={() => handleTagClick(key as keyof typeof tiposEvento)}
-              className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg border cursor-pointer transition-all duration-200 ${
-                filtroActivo === key 
-                  ? 'shadow-lg scale-105' 
-                  : 'opacity-70 hover:opacity-100'
-              }`}
-              style={{ 
-                backgroundColor: `${tipo.color}20`, 
-                borderColor: tipo.borderColor 
-              }}
-            >
-              <div 
-                className="w-3 h-3 rounded-full"
-                style={{ backgroundColor: tipo.color }}
-              ></div>
-              <span className="text-sm font-medium" style={{ color: tipo.color }}>
-                {tipo.label}
-              </span>
-            </div>
-          ))}
-        </div>
       </div>
-      
-      <div className="bg-background rounded-lg border shadow-sm">
-        <ScheduleXCalendar calendarApp={calendar} />
+
+      <div className="flex flex-col md:flex-row gap-8">
+        {/* Columna de Filtros */}
+        <div className="w-full md:w-1/4 lg:w-1/5">
+          <h3 className="text-lg font-semibold mb-4">Filtrar por tipo</h3>
+          <div className="space-y-3">
+            {Object.entries(tiposEvento).map(([key, tipo]) => {
+              const isActive = filtrosActivos.includes(key as keyof typeof tiposEvento);
+              return (
+                <div 
+                  key={key}
+                  onClick={() => handleTagClick(key as keyof typeof tiposEvento)}
+                  className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all duration-200 ${
+                    isActive 
+                      ? 'shadow-lg scale-105' 
+                      : 'opacity-80 hover:opacity-100 hover:shadow-md'
+                  }`}
+                  style={{ 
+                    backgroundColor: isActive ? tipo.backgroundColor : `${tipo.color}10`,
+                    borderColor: tipo.borderColor 
+                  }}
+                >
+                  <div 
+                    className="w-4 h-4 rounded-full"
+                    style={{ backgroundColor: tipo.color }}
+                  ></div>
+                  <span className="text-sm font-medium" style={{ color: tipo.color }}>
+                    {tipo.label}
+                  </span>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* Columna del Calendario */}
+        <div className="w-full md:w-3/4 lg:w-4/5">
+          <div className="bg-background rounded-lg border shadow-sm">
+            <ScheduleXCalendar calendarApp={calendar} />
+          </div>
+        </div>
       </div>
       
       {eventoSeleccionado && (
